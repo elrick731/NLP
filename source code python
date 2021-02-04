@@ -1,0 +1,117 @@
+########################################################################################################################
+
+
+
+
+                                            TITRE: POC NLP
+                                              
+                                            #BIAO AFOLABY ELRICK SULLIVAN
+                                            #DATA SCIENTIST jr -TECOMS INGENIEER
+
+
+
+
+
+################################# Ceci est une fonction pour installer les packages necessaires #############################
+
+
+
+def installer_package():
+    liste=["speech_recognition","pywhatkit","wikipedia","datetime"]
+    import os 
+    for i in liste:
+        os.system("pip install "+i)
+        
+        
+           
+#########################################   Importation des packages ####################################################
+
+
+
+
+import speech_recognition as sr
+import pywhatkit as yout
+import wikipedia as wiki
+import datetime as date
+import pyttsx3 as eng
+import datetime
+ecouteur=sr.Recognizer()
+engine=eng.init()
+
+
+
+##############################################    Fonction "Repondre"   ####################################################
+
+
+
+def repondre(reponse):
+    engine.say(reponse)
+    engine.runAndWait()
+    
+    
+    
+
+################################################   Fonction demander  ####################################################
+
+
+
+def demander():
+    
+    try:
+        with sr.Microphone() as source:
+            voice=ecouteur.listen(source)
+            
+            msg=ecouteur.recognize_google(voice,language="Fr-fr")
+            print(msg)
+    except IOError as e:
+        print (' erreur du type: '+str(e))
+    
+    return msg
+
+
+
+
+
+#################################################### Fonction "action"   ##################################################
+
+
+
+ecouteur=sr.Recognizer()
+def action():
+    try:
+        txt=demander()
+        print(txt)
+        if "identité"  in txt:
+    
+            repondre("je suis SIGMAXR60 que puis je faire pour vous")
+    
+    
+        if "musique" in txt:
+            print(" Oui je peux le faire que voulez vous,DITES JOUER suivi du nom de l'artiste")
+            repondre(" Oui je peux le faire que voulez vous,DITES JOUER suivi du nom de l'artiste")
+    
+        if "joue" in txt:
+            print("ok")
+   
+    
+            artiste=txt.replace("joue","")
+            print(artiste)
+            repondre("je vais vous jouez "+artiste)
+            yout.playonyt(artiste)
+    
+        if "couple" in txt:
+            repondre(" je suis désolé je suis en couple avec le wifi")
+    
+        if "heure" in txt:
+            hr=datetime.datetime.now().strftime('%I:%M',)
+            repondre("il est")
+            repondre(hr)
+        if "nourriture préféré" in txt:
+    
+            repondre("je me nourri essentiellement d'éléments binaires")
+    
+    except:
+        repondre("cette opération est impossible pour le moment essayer à nouveau")
+###############################################                             La principale                  ##########################################################
+while 1:
+    action()
